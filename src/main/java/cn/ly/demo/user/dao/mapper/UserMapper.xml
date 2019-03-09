@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ly.demo.user.dao.mapper.UserMapper">
+
+    <select id="getUserById" resultMap="userMap">
+        SELECT *
+        FROM user
+        WHERE u_id = #{id};
+    </select>
+
+    <select id="getCountByUseridAndPassword" resultType="int">
+        SELECT count(*)
+        FROM user
+        WHERE u_id = #{id}
+          AND u_password = #{password};
+    </select>
+
+    <select id="getAllLibrarians" resultMap="userMap">
+        SELECT *
+        FROM user
+        WHERE u_level = 1;
+    </select>
+
+    <select id="getReaderList" resultMap="userMap" parameterType="hashmap">
+        SELECT *
+        FROM user
+        WHERE u_level = 2
+        limit #{startIndex},#{rowCount};
+    </select>
+
+    <insert id="addUser" parameterType="_user">
+        INSERT into user (u_id, u_password, u_level, u_name, u_email)
+        VALUES (#{id}, #{password}, #{level}, #{name}, #{email});
+    </insert>
+
+    <select id="getReaderCount" resultType="int">
+        SELECT count(*)
+        FROM user
+        where u_level = 2;
+    </select>
+
+    <delete id="deleteUser" parameterType="_user">
+        delete
+        from user
+        where u_id = #{id}
+    </delete>
+
+    <resultMap id="userMap" type="_user">
+        <id property="id" column="u_id"/>
+        <result property="password" column="u_password"/>
+        <result property="level" column="u_level"/>
+        <result property="name" column="u_name"/>
+        <result property="email" column="u_email"/>
+    </resultMap>
+</mapper>

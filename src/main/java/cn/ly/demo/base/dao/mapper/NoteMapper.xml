@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ly.demo.base.dao.mapper.NoteMapper">
+
+    <select id="getNoteById" resultMap="noteMap">
+        SELECT *
+        FROM note
+        WHERE n_id = #{id}
+    </select>
+
+    <select id="getNoteList" resultMap="noteMap" parameterType="hashmap">
+        select *
+        from note
+        limit #{startIndex},#{rowCount};
+    </select>
+
+    <insert id="addNote" parameterType="_note">
+        insert into note (n_userId, n_head, n_body, n_date)
+        VALUES (#{userId}, #{head}, #{body}, #{date});
+    </insert>
+
+    <resultMap id="noteMap" type="_note">
+        <id property="id" column="n_id"/>
+        <result property="userId" column="n_userId"/>
+        <result property="head" column="n_head"/>
+        <result property="body" column="n_body"/>
+        <result property="date" column="n_date"/>
+    </resultMap>
+</mapper>

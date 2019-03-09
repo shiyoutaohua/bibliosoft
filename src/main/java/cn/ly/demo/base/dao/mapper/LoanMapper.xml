@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ly.demo.base.dao.mapper.LoanMapper">
+
+    <select id="getLoanById" resultMap="loanMap">
+        SELECT *
+        FROM loan
+        WHERE l_id = #{id}
+    </select>
+
+    <select id="getLoanList" resultMap="loanMap" parameterType="hashmap">
+        SELECT *
+        FROM loan
+        limit #{startIndex},#{rowCount};
+    </select>
+
+    <select id="getLoanListByUserId" parameterType="_loan" resultMap="loanMap">
+        SELECT *
+        FROM loan
+        WHERE l_userId = #{userId};
+    </select>
+
+    <update id="updateLoanById" parameterType="_loan">
+        update loan
+        set loan.l_bookId      = #{bookId},
+            loan.l_userId      = #{userId},
+            loan.l_lendingDate = #{lendingDate},
+            loan.l_status      = #{status},
+            loan.l_fine        = #{fine}
+        where loan.l_id = #{id}
+    </update>
+
+    <insert id="addLoan" parameterType="_loan">
+        insert into loan (l_bookId, l_userId, l_lendingDate, l_status)
+        VALUES (#{bookId}, #{userId}, #{lendingDate}, #{status});
+    </insert>
+
+    <resultMap id="loanMap" type="_loan">
+        <id property="id" column="l_id"/>
+        <result property="bookId" column="l_bookId"/>
+        <result property="userId" column="l_userId"/>
+        <result property="lendingDate" column="l_lendingDate"/>
+        <result property="status" column="l_status"/>
+        <result property="fine" column="l_fine"/>
+    </resultMap>
+</mapper>

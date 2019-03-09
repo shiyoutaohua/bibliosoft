@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ly.demo.book.dao.mapper.BookMapper">
+
+    <select id="getBookById" resultMap="bookMap">
+        SELECT *
+        FROM book
+        WHERE b_id = #{id};
+    </select>
+
+    <select id="getBookList" resultMap="bookMap" parameterType="hashmap">
+        SELECT *
+        FROM book
+        limit #{startIndex},#{rowCount};
+    </select>
+
+    <select id="getBookListByKey" resultMap="bookMap" parameterType="string">
+        SELECT *
+        FROM book
+        WHERE b_title like #{key}
+           OR b_author like #{key}
+           or b_tag like #{key}
+    </select>
+
+    <insert id="addBook" parameterType="_book">
+        INSERT into book (b_ISBN, b_title, b_author, b_tag, b_press, b_publishDate, b_location, b_status)
+        VALUES (#{ISBN}, #{title}, #{author}, #{tag}, #{press}, #{publishDate}, #{location}, #{status});
+    </insert>
+
+    <update id="updateBookById" parameterType="_book">
+        update book
+        set b_title       = #{title},
+            b_ISBN        = #{ISBN},
+            b_author      = #{author},
+            b_tag         = #{tag},
+            b_press       = #{press},
+            b_publishDate = #{publishDate},
+            b_location    = #{location},
+            b_status      = #{status}
+        where b_id = #{id}
+    </update>
+
+    <delete id="deleteBookById" parameterType="_book">
+        DELETE
+        from book
+        WHERE b_id = #{id}
+    </delete>
+
+    <resultMap id="bookMap" type="_book">
+        <id property="id" column="b_id"/>
+        <result property="ISBN" column="b_ISBN"/>
+        <result property="title" column="b_title"/>
+        <result property="author" column="b_author"/>
+        <result property="tag" column="b_tag"/>
+        <result property="press" column="b_press"/>
+        <result property="publishDate" column="b_publishDate"/>
+        <result property="location" column="b_location"/>
+        <result property="status" column="b_status"/>
+    </resultMap>
+</mapper>

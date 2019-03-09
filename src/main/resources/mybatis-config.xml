@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="_user" type="cn.ly.demo.user.entity.User"/>
+        <typeAlias alias="_book" type="cn.ly.demo.book.entity.Book"/>
+        <typeAlias alias="_profile" type="cn.ly.demo.base.entity.Profile"/>
+        <typeAlias alias="_order" type="cn.ly.demo.base.entity.Order"/>
+        <typeAlias alias="_loan" type="cn.ly.demo.base.entity.Loan"/>
+        <typeAlias alias="_note" type="cn.ly.demo.base.entity.Note"/>
+        <typeAlias alias="_log" type="cn.ly.demo.base.entity.Log"/>
+    </typeAliases>
+</configuration>

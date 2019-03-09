@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ly.demo.base.dao.mapper.OrderMapper">
+
+    <select id="getOrderById" resultMap="orderMap">
+        SELECT *
+        FROM `order`
+        WHERE o_id = #{id}
+    </select>
+
+    <select id="getOrderByBook" parameterType="_book" resultMap="orderMap">
+        SELECT *
+        FROM `order`
+        WHERE o_bookId = #{id}
+    </select>
+
+    <insert id="addOrder" parameterType="_order">
+        insert into `order` (o_bookId, o_userId, o_orderTime)
+        VALUES (#{bookId}, #{userId}, #{orderTime});
+    </insert>
+
+    <delete id="deleteOrder" parameterType="_order">
+        DELETE
+        FROM `order`
+        WHERE o_id = #{id}
+    </delete>
+    <resultMap id="orderMap" type="_order">
+        <id property="id" column="o_id"/>
+        <result property="bookId" column="o_bookId"/>
+        <result property="userId" column="o_userId"/>
+        <result property="orderTime" column="o_orderTime"/>
+    </resultMap>
+</mapper>
